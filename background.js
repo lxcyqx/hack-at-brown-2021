@@ -24,7 +24,7 @@ chrome.tabs.getSelected(null, function(tab) {
 
 let tabTimeDict = {}; 
 let startTime = new Date();
-let endTime;
+let endTime = 0;
 
 
 // Listener for current tab change. 

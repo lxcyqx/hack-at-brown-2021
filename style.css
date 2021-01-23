@@ -1,0 +1,21 @@
+#website-container {
+    margin: 10px;
+}
+
+.popup-body{
+    background-color: aqua;
+}
+.popup-container {
+    width: 300px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.website-name {
+    color: blue;
+    float: left;
+}
+
+.num-hours{
+    float:right;
+}
