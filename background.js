@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener(function() {
     chrome.storage.sync.set({color: '#3aa757'}, function() {
-      console.log('The color is green.');
+      //console.log('The color is green.');
     });
     chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
       chrome.declarativeContent.onPageChanged.addRules([{
@@ -14,7 +14,8 @@ chrome.runtime.onInstalled.addListener(function() {
   });
 
 
-let currentTabURL ;
+let currentTabURL;
+// Set up the current tab URL when the browser is first opened.
 chrome.tabs.getSelected(null, function(tab) {
     var tablink = tab.url;
     const url = new URL(tablink);
@@ -34,7 +35,7 @@ chrome.tabs.onHighlighted.addListener(onCurrentTabChange);
  * This is called when the current tab changes.
  */
 function onCurrentTabChange(highlightInfo) {
-    // Need to save info from previous URL's timer, 
+    // Save info from previous URL's timer, 
     // and then start a new timer.
     endTime = new Date();
     var timeDiff = endTime - startTime; //in ms
@@ -57,13 +58,10 @@ function onCurrentTabChange(highlightInfo) {
         var tablink = tab.url;
         const url = new URL(tablink);
         const cleanURL = url.hostname;
-        //console.log(cleanURL);
         currentTabURL = cleanURL; 
         //console.log("new current url: " + currentTabURL);
     });
 
-    //timeStart();
+    // Restart the timer. 
     startTime = new Date();
-    
-    //console.log(tabTimeDict);
 }
