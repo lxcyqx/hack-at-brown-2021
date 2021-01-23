@@ -9,7 +9,9 @@
 
 .popup-body{
     background-color:#F1F2FF;
+    border-radius: 30px;
 }
+
 .popup-container {
     width: 300px;
     border-radius: 10px;
@@ -32,4 +34,5 @@
 h1 {
     justify-content: center;
     text-align: center;
+    color: #575CC0;
 }
