@@ -1,4 +1,4 @@
-//import {getTabTimeDict} from './modules/background.js';
+import {getTabTimeDict} from './background.js';
 
 
 function convertSecondsToString(seconds){

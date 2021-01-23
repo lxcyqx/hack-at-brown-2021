@@ -4,7 +4,7 @@
     "description": "Build an Extension!",
     "permissions": ["activeTab", "declarativeContent", "storage", "tabs"],
     "background": {
-      "scripts": ["background.js"]
+      "scripts": ["background.html"]
     },
     "page_action": {
         "default_popup": "popup.html",
