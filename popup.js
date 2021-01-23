@@ -13,8 +13,20 @@ function addWebsite(){
   websiteInfo.appendChild(numHours);
 
   container.appendChild(websiteInfo);
-  console.log("add website");
 }
 
 addWebsite();
+
+function getTopWebsites(dict){
+  let items = Object.keys(dict).map(function(key) {
+    return [key, dict[key]];
+  })
+
+  items.sort(function(first, second) {
+    return second[1] - first[1];
+  })
+  console.log(items.slice(0, 5));
+  return items.slice(0,5);
+}
+
   
