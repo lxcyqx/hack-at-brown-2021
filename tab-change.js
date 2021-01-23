@@ -1,19 +1,3 @@
-chrome.runtime.onInstalled.addListener(function() {
-    chrome.storage.sync.set({color: '#3aa757'}, function() {
-      //console.log('The color is green.');
-    });
-    chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-      chrome.declarativeContent.onPageChanged.addRules([{
-        conditions: [new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {hostEquals: 'developer.chrome.com'},
-        })
-        ],
-            actions: [new chrome.declarativeContent.ShowPageAction()]
-      }]);
-    });
-  });
-
-
 let currentTabURL ;
 chrome.tabs.getSelected(null, function(tab) {
     var tablink = tab.url;
@@ -24,8 +8,9 @@ chrome.tabs.getSelected(null, function(tab) {
 
 let tabTimeDict = {}; 
 let startTime = new Date();
-let endTime = 0;
+let endTime;
 
+console.log("hi");
 
 // Listener for current tab change. 
 chrome.tabs.onHighlighted.addListener(onCurrentTabChange);
@@ -59,10 +44,24 @@ function onCurrentTabChange(highlightInfo) {
         currentTabURL = cleanURL; 
     });
     startTime = new Date();
+    console.log(tabTimeDict);
 }
 
-function convertSecondsToString(seconds){
-  var hour = Math.floor(seconds/60);
-  var min = seconds % 60;
-  return hour + " hr " + min + " min";
+
+function getTabTimeDict() {
+    endTime = new Date();
+    var timeDiff = endTime - startTime; //in ms
+    // strip the ms
+    timeDiff /= 1000;
+
+    // get seconds 
+    var timeDiffSeconds = Math.round(timeDiff);
+
+    if (! (currentTabURL in tabTimeDict)) {
+        tabTimeDict[currentTabURL] = 0.0;
+    }
+    tabTimeDict[currentTabURL] += timeDiffSeconds;
+    return tabTimeDict; 
 }
+
+//export default getTabTimeDict; 

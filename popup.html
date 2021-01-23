@@ -5,10 +5,29 @@
   </head>
 
   <body class="popup-body">
+    
+    <link rel="shortcut icon" type="img/png" href="images/favicon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Screen Time">
+    <meta name="keywords" content="Screen Time">
+    <meta name="author" content="Daniela Haidar, Holly Zheng, Lucy Qu, Thien Nguyen">
+    <title> Screen Time </title>
+    <link rel="stylesheet" href="styling.css">
+  </head>
+  <body>
+
     <div class="popup-container">
       <h1>My Activity</h1>
+      <script src="chart-api.js"></script>
+      <canvas id="myChart"></canvas>
       <div id="website-container"></div>
     </div>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> -->
+   
+    <script src="tab-change.js"></script>
+    <script src="dataDisplay.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>
