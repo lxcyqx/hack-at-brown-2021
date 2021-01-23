@@ -30,3 +30,9 @@ function onCurrentTabChange(highlightInfo) {
         return cleanURL;
     });
 }
+
+function convertSecondsToString(seconds){
+  var hour = Math.floor(seconds/60);
+  var min = seconds % 60;
+  return hour + " hr " + min + " min";
+}
