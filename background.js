@@ -13,12 +13,20 @@ chrome.runtime.onInstalled.addListener(function() {
     });
   });
 
-chrome.tabs.getSelected(null,function(tab) {
-  var tablink = tab.url;
-  getCleanURL(tablink);
-});
+// Listener for current tab change. 
+chrome.tabs.onHighlighted.addListener(onCurrentTabChange);
 
-function getCleanURL(tablink){
-  const url = new URL(tablink);
-  return url.hostname;
+/*
+ * This is called when the current tab changes.
+ */
+function onCurrentTabChange(highlightInfo) {
+    // For some reason I can't call a helper function here...
+    // So just copying the content of Lucy's get URL function
+    chrome.tabs.getSelected(highlightInfo.windowId, function(tab) {
+        var tablink = tab.url;
+        const url = new URL(tablink);
+        const cleanURL = url.hostname;
+        //console.log(cleanURL);
+        return cleanURL;
+    });
 }
