@@ -17,7 +17,6 @@
 function addWebsite(){
   let container = document.getElementById('website-container');
   let websiteInfo = document.createElement('div');
-  websiteInfo.style.padding = "10px";
 
   let websiteName = document.createElement('span');
   websiteName.setAttribute("class", "website-name");
