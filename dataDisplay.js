@@ -1,4 +1,4 @@
-//import getTabTimeDict from './background.js';
+//import {getTabTimeDict} from './modules/background.js';
 
 
 function convertSecondsToString(seconds){
@@ -7,7 +7,7 @@ function convertSecondsToString(seconds){
     return hour + " hr " + min + " min";
 }
 
-console.log(getTabTimeDict());
+//console.log(getTabTimeDict());
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
