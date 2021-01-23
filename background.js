@@ -43,7 +43,6 @@ function onCurrentTabChange(highlightInfo) {
 
     // get seconds 
     var timeDiffSeconds = Math.round(timeDiff);
-    //console.log(timeDiffSeconds  + " seconds");
 
     if (! (currentTabURL in tabTimeDict)) {
         tabTimeDict[currentTabURL] = 0.0;
@@ -57,13 +56,13 @@ function onCurrentTabChange(highlightInfo) {
         var tablink = tab.url;
         const url = new URL(tablink);
         const cleanURL = url.hostname;
-        //console.log(cleanURL);
         currentTabURL = cleanURL; 
-        //console.log("new current url: " + currentTabURL);
     });
-
-    //timeStart();
     startTime = new Date();
-    
-    //console.log(tabTimeDict);
+}
+
+function convertSecondsToString(seconds){
+  var hour = Math.floor(seconds/60);
+  var min = seconds % 60;
+  return hour + " hr " + min + " min";
 }
