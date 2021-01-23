@@ -12,3 +12,13 @@ chrome.runtime.onInstalled.addListener(function() {
       }]);
     });
   });
+
+chrome.tabs.getSelected(null,function(tab) {
+  var tablink = tab.url;
+  getCleanURL(tablink);
+});
+
+function getCleanURL(tablink){
+  const url = new URL(tablink);
+  return url.hostname;
+}
