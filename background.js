@@ -1,6 +1,5 @@
 chrome.runtime.onInstalled.addListener(function() {
     chrome.storage.sync.set({color: '#3aa757'}, function() {
-      //console.log('The color is green.');
     });
     chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
       chrome.declarativeContent.onPageChanged.addRules([{
@@ -12,8 +11,6 @@ chrome.runtime.onInstalled.addListener(function() {
       }]);
     });
   });
-
-console.log("Background");
 
 let currentTabURL ;
 chrome.tabs.getSelected(null, function(tab) {
@@ -59,7 +56,6 @@ function onCurrentTabChange(highlightInfo) {
         currentTabURL = cleanURL; 
     });
     startTime = new Date();
-    console.log(tabTimeDict);
 }
 
 
@@ -71,11 +67,13 @@ function getTabTimeDict() {
 
     // get seconds 
     var timeDiffSeconds = Math.round(timeDiff);
+    console.log(timeDiffSeconds);
 
     if (! (currentTabURL in tabTimeDict)) {
         tabTimeDict[currentTabURL] = 0.0;
     }
     tabTimeDict[currentTabURL] += timeDiffSeconds;
+    startTime = endTime;
 
     return tabTimeDict; 
 }
@@ -84,7 +82,6 @@ var updateDictLoop = window.setInterval(updateDictMessage, 5000);
 
 function updateDictMessage() {
  // Your code here
- //console.log("update dict message");
  getTabTimeDict();
  chrome.runtime.sendMessage(
   {currentTabTimeDict: tabTimeDict}, 

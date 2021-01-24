@@ -2,26 +2,28 @@
 
 
 function convertSecondsToString(seconds){
-    var hour = Math.floor(seconds/60);
-    var min = seconds % 60;
+    var hour = Math.floor(seconds/3600);
+    var min = Math.floor((seconds - hour * 3600)/60);
     return hour + " hr " + min + " min";
 }
 
   function addWebsite(websiteName, websiteTimeSecond){
     let container = document.getElementById('website-container');
     let websiteInfo = document.createElement('div');
+    websiteInfo.setAttribute("class", "website-info");
   
-    let websiteNameContainer = document.createElement('span');
+    let websiteNameContainer = document.createElement('div');
     websiteNameContainer.setAttribute("class", "website-name");
     websiteNameContainer.innerHTML = websiteName;
     websiteInfo.appendChild(websiteNameContainer);
   
-    let numHoursContainer = document.createElement('span');
+    let numHoursContainer = document.createElement('div');
     numHoursContainer.innerHTML = convertSecondsToString(websiteTimeSecond);
     numHoursContainer.setAttribute("class", "num-hours");
     websiteInfo.appendChild(numHoursContainer);
   
     container.appendChild(websiteInfo);
+    container.appendChild(document.createElement("br"));
   }
 
   function emptyWebsiteInfoContainer() {
