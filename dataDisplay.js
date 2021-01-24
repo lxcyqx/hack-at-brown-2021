@@ -1,4 +1,4 @@
-import {getTabTimeDict} from './background.js';
+
 
 
 function convertSecondsToString(seconds){
@@ -7,7 +7,41 @@ function convertSecondsToString(seconds){
     return hour + " hr " + min + " min";
 }
 
-console.log(getTabTimeDict());
+  function addWebsite(websiteName, websiteTimeSecond){
+    let container = document.getElementById('website-container');
+    let websiteInfo = document.createElement('div');
+  
+    let websiteNameContainer = document.createElement('span');
+    websiteNameContainer.setAttribute("class", "website-name");
+    websiteNameContainer.innerHTML = websiteName;
+    websiteInfo.appendChild(websiteNameContainer);
+  
+    let numHoursContainer = document.createElement('span');
+    numHoursContainer.innerHTML = convertSecondsToString(websiteTimeSecond);
+    numHoursContainer.setAttribute("class", "num-hours");
+    websiteInfo.appendChild(numHoursContainer);
+  
+    container.appendChild(websiteInfo);
+  }
+
+  function emptyWebsiteInfoContainer() {
+    document.getElementById('website-container').innerHTML = '';
+  }
+
+  
+  function getTopWebsites(dict){
+    let items = Object.keys(dict).map(function(key) {
+      return [key, dict[key]];
+    })
+  
+    items.sort(function(first, second) {
+      return second[1] - first[1];
+    })
+    //console.log(items.slice(0, 5));
+    return items.slice(0,5);
+  }
+
+
 let colors = [
     '#4ECDC4',
     '#B8F2E6',
@@ -16,23 +50,42 @@ let colors = [
     '#FFA69E'
 ]
 var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'pie',
 
-    // The data for our dataset
-    data: {
-        labels: ['Google', 'Facebook', 'Amazon', 'Netflix', 'Hulu'],
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: colors,
-            data: [3,4,5, 10, 50],
-        }]
-    },
-    
+let currentTabTimeDict; 
 
-    // Configuration options go here
-    options: {
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        emptyWebsiteInfoContainer()
         
+      currentTabTimeDict = request.currentTabTimeDict; 
+      const currentTopFiveWebsites = getTopWebsites(currentTabTimeDict);
+      
+      let websiteLabels = [];
+      let websiteWeights = [];
+      for (var i = 0; i < currentTopFiveWebsites.length; i++) {
+          websiteLabels.push(currentTopFiveWebsites[i][0]);
+          websiteWeights.push(currentTopFiveWebsites[i][1]);
+          addWebsite(currentTopFiveWebsites[i][0], currentTopFiveWebsites[i][1]);
+      }
+
+      var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'pie',
+    
+        // The data for our dataset
+        data: {
+            labels: websiteLabels,
+            datasets: [{
+                label: 'Top websites',
+                backgroundColor: colors,
+                data: websiteWeights,
+            }]
+        },
+        
+        // Configuration options go here
+        options: {
+            
+        }
+    });
     }
-});
+  );

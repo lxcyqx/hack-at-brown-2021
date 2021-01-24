@@ -13,6 +13,7 @@ chrome.runtime.onInstalled.addListener(function() {
     });
   });
 
+console.log("Background");
 
 let currentTabURL ;
 chrome.tabs.getSelected(null, function(tab) {
@@ -75,7 +76,19 @@ function getTabTimeDict() {
         tabTimeDict[currentTabURL] = 0.0;
     }
     tabTimeDict[currentTabURL] += timeDiffSeconds;
+
     return tabTimeDict; 
 }
 
-export {getTabTimeDict};
+var updateDictLoop = window.setInterval(updateDictMessage, 5000);
+
+function updateDictMessage() {
+ // Your code here
+ //console.log("update dict message");
+ getTabTimeDict();
+ chrome.runtime.sendMessage(
+  {currentTabTimeDict: tabTimeDict}, 
+  function(response) {
+  });
+}
+
