@@ -1,4 +1,4 @@
-# hack-at-brown-2021
+# Web browser screen time monitor
 
 We built a Chrome extension that monitors how much time you spend on each website and displays it in a pie chart. 
 
