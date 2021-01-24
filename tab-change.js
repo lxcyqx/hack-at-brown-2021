@@ -63,5 +63,3 @@ function getTabTimeDict() {
     tabTimeDict[currentTabURL] += timeDiffSeconds;
     return tabTimeDict; 
 }
-
-//export default getTabTimeDict; 
